@@ -1,11 +1,11 @@
-package marvelapi.service;
+package marvel.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
-import marvelapi.client.MarvelClient;
-import marvelapi.model.DataResponse;
-import marvelapi.model.ResultsResponse;
+import marvel.client.MarvelClient;
+import marvel.model.DataResponse;
+import marvel.model.ResultsResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.apache.commons.codec.digest.DigestUtils;

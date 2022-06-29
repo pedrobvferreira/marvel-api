@@ -1,4 +1,4 @@
-package marvelapi.model;
+package marvel.model;
 
 import java.util.List;
 import lombok.AllArgsConstructor;

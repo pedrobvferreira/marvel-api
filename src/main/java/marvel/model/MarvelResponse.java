@@ -1,4 +1,4 @@
-package marvelapi.model;
+package marvel.model;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

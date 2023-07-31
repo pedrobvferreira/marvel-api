@@ -23,7 +23,7 @@ public class MarvelController {
     private MarvelService service;
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/characters")
+    @GetMapping("/charactersIds")
     public List<Long> findAllCharactersIId() {
         return service.getAllCharactersId();
     }
@@ -33,11 +33,11 @@ public class MarvelController {
     public ResultsResponse getCharacterId(@PathVariable Long characterId) {
         return service.getCharacterId(characterId);
     }
-    
+
     @GetMapping("/comics")
     public ResponseEntity<MarvelResponse> findAllComics() {
         var listCharacterId = service.findAllComics();
-        
+
         return ResponseEntity.status(HttpStatus.OK).body(listCharacterId);
     }
 

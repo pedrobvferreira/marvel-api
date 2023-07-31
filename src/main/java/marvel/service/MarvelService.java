@@ -1,14 +1,15 @@
 package marvel.service;
 
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 import marvel.client.MarvelClient;
-import marvel.model.DataResponse;
+import marvel.model.MarvelResponse;
 import marvel.model.ResultsResponse;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.apache.commons.codec.digest.DigestUtils;
 
 @Service
 @AllArgsConstructor
@@ -22,22 +23,32 @@ public class MarvelService {
 
     public List<Long> getAllCharactersId() {
 
-        return getAllCharacters().getResults().stream().map(ResultsResponse::getId).collect(Collectors.toList());
+        return getAllCharacters().getData().getResults().stream().map(ResultsResponse::getId).collect(Collectors.toList());
     }
 
-    public DataResponse getAllCharacters() {
+    public MarvelResponse getAllCharacters() {
 
-        return client.getAllCharacters(PUBLIC_KEY, buildHash());
+        Long timeStamp = new Date().getTime();
+
+        return client.getAllCharacters(timeStamp, PUBLIC_KEY, buildHash(timeStamp));
+    }
+
+    public MarvelResponse findAllComics() {
+        Long timeStamp = new Date().getTime();
+
+        return client.getAllComics(timeStamp, PUBLIC_KEY, buildHash(timeStamp));
     }
 
     public ResultsResponse getCharacterId(Long idCharacter) {
 
-        return client.getCharacterId(idCharacter, PUBLIC_KEY, buildHash());
+        Long timeStamp = new Date().getTime();
+
+        return client.getCharacterId(idCharacter, PUBLIC_KEY, buildHash(timeStamp));
     }
 
-    private String buildHash() {
+    private String buildHash(Long timeStamp) {
 
-        return DigestUtils.md5Hex(PRIVATE_KEY + PUBLIC_KEY);
+        return DigestUtils.md5Hex(timeStamp + PRIVATE_KEY + PUBLIC_KEY);
     }
 
 }
